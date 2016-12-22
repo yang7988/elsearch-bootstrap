@@ -14,6 +14,9 @@ public interface ExceptionDefinition {
     public String CRTINDEX_EX="0102";
     public String CRTINDEX_EXMSG="创建索引异常";
 
+    public String SEARCH_EX="0102";
+    public String SEARCH_EXMSG="检索异常";
+
     public String PLATFORM_EX="0100";
     public String PLATFORM_EXMSG="接口异常";
 
