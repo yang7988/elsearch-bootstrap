@@ -56,7 +56,7 @@ public class TMoniFlowBaseService {
     /**
      * 封装elastic搜索请求头信息
      *
-     * @return
+     * @return org.elasticsearch.action.search.SearchRequestBuilder
      */
     protected SearchRequestBuilder extractSearchHead(TransportClient transportClient, String requestParams) {
         Map<String, Object> params = GsonUtil.fromJson(requestParams, Map.class);
