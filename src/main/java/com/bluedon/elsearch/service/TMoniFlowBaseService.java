@@ -60,12 +60,16 @@ public class TMoniFlowBaseService {
      */
     protected SearchRequestBuilder extractSearchHead(TransportClient transportClient, String requestParams) {
         Map<String, Object> params = GsonUtil.fromJson(requestParams, Map.class);
-        List<String> indexName = (List<String>) params.get("indexName");
         List<String> types = (List<String>) params.get("type");
         LinkedTreeMap<String, Object> conditionMap = (LinkedTreeMap) params.get("condition");
-        String[] index_array = indexName == null || indexName.size() == 0 ? Data.INDEX_ARRAY : indexName.toArray(new String[indexName.size()]);
-        String[] type_array = types == null || types.size() == 0 ? Data.TYPE_ARRAY : types.toArray(new String[types.size()]);
-        SearchRequestBuilder searchRequestBuilder = transportClient.prepareSearch(index_array).setTypes(type_array).setSearchType(SearchType.DEFAULT);
+        String[] index_array = new String[]{Data.TMONIFLOW_INDEX};
+        SearchRequestBuilder searchRequestBuilder = null;
+        if(types == null || types.size() == 0) {
+            searchRequestBuilder = transportClient.prepareSearch(index_array).setSearchType(SearchType.DEFAULT);
+        }else {
+            String[] type_array = types.toArray(new String[types.size()]);
+            searchRequestBuilder = transportClient.prepareSearch(index_array).setTypes(type_array).setSearchType(SearchType.DEFAULT);
+        }
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
         Iterator<Map.Entry<String, Object>> it = conditionMap.entrySet().iterator();
         while (it.hasNext()) {

@@ -26,9 +26,9 @@ public class TMoniFlowService extends TMoniFlowBaseService {
     public Object createIndex(String requestParams) {
         Response response = new Response();
         try {
-//            String indexName = requestParams.substring(0,requestParams.indexOf(" "));
+            String indexName = requestParams.substring(0,requestParams.indexOf(" "));
             String documentJson = requestParams.substring(requestParams.indexOf("{"));
-            IndexResponse indexResponse = transportClient.prepareIndex(Data.TMONIFLOW_INDEX, Data.TMONIFLOW_TYPE)
+            IndexResponse indexResponse = transportClient.prepareIndex(Data.TMONIFLOW_INDEX, indexName)
                     .setSource(documentJson).execute().actionGet();
             response.setExCode(ExceptionDefinition.SUCCESS_CODE);
             response.setExMsg(ExceptionDefinition.SUCCESS_MSG);
